@@ -4,7 +4,7 @@ import bus from '../event-bus'
 
 export default {
 
-    bind(el) {
+    bind(el, {arg}) {
 
         switch (el.tagName.toLowerCase()) {
 
@@ -17,44 +17,44 @@ export default {
                 break;
 
         }
+
+        var handleFormSubmit = function (event) {
+            event.preventDefault();
+
+            const container = arg;
+            const url = el.getAttribute('action');
+            const method = el.getAttribute('method') || 'POST';
+            const data = serialize(el);
+
+            request(container, { url, method, data })
+                .then(response => {
+                    bus.$emit('pjax-loaded', {
+                        url,
+                        container,
+                        content: response.data,
+                    });
+                }, () => {
+                    window.location = url;
+                });
+        }
+
+        var handleLinkClick = function (event) {
+            event.preventDefault();
+
+            const container = arg;
+            const url = el.getAttribute('href');
+
+            request(container, { url, method: 'GET' })
+                .then(response => {
+                    bus.$emit('pjax-loaded', {
+                        url,
+                        container,
+                        content: response.data,
+                    });
+                }, () => {
+                    window.location = url;
+                });
+        }
     }
 
 };
-
-function handleFormSubmit(event) {
-    event.preventDefault();
-
-    const container = this.arg;
-    const url = this.el.getAttribute('action');
-    const method = this.el.getAttribute('method') || 'POST';
-    const data = serialize(this.el);
-
-    request(container, { url, method, data })
-        .then(response => {
-            bus.$emit('pjax-loaded', {
-                url,
-                container,
-                content: response.data,
-            });
-        }, () => {
-            window.location = url;
-        });
-}
-
-function handleLinkClick(event) {
-    event.preventDefault();
-
-    const container = this.arg;
-    const url = this.el.getAttribute('href');
-
-    request(container, { url, method: 'GET' })
-        .then(response => {
-            bus.$emit('pjax-loaded', {
-                url,
-                container,
-                content: response.data,
-            });
-        }, () => {
-            window.location = url;
-        });
-}
