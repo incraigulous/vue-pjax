@@ -13,7 +13,7 @@ export default {
     `,
 
     mounted() {
-        bus.$on('pjax-loaded', () => {
+        bus.$on('pjax-loaded', ({ url, container, content}) => {
             if (this.name !== container) {
                 return;
             }
