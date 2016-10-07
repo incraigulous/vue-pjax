@@ -1,3 +1,5 @@
+import bus from '../event-bus'
+
 export default {
 
     props: {
@@ -17,7 +19,7 @@ export default {
                 return;
             }
 
-            this.$dispatch('pjax-replace', {
+            bus.$emit('pjax-replace', {
                 url,
                 content,
                 element: this.$refs.container,

@@ -1,5 +1,6 @@
 import PjaxContainer from '../components/pjax-container';
 import Pjax from '../directives/pjax';
+import bus from '../event-bus';
 
 export default {
 
@@ -11,11 +12,11 @@ export default {
         Pjax,
     },
 
-    events: {
-        ['pjax-replace']({ element, content }) {
+    mounted() {
+        bus.$on('pjax-replace', ({ element, content }) => {
             element.innerHTML = content;
             this.$compile(element);
-        },
+        })
     },
 
 };
