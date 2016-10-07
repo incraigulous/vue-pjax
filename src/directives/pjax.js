@@ -9,11 +9,11 @@ export default {
         switch (el.tagName.toLowerCase()) {
 
             case 'a':
-                this.on('click', handleLinkClick.bind(this));
+                el.addEventListener("click", handleLinkClick.bind(this));
                 break;
 
             case 'form':
-                this.on('submit', handleFormSubmit.bind(this));
+                el.addEventListener("submit", handleFormSubmit.bind(this));
                 break;
 
         }
