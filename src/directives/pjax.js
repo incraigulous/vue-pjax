@@ -5,19 +5,6 @@ import bus from '../event-bus'
 export default {
 
     bind(el, {arg}) {
-
-        switch (el.tagName.toLowerCase()) {
-
-            case 'a':
-                el.addEventListener("click", handleLinkClick.bind(this));
-                break;
-
-            case 'form':
-                el.addEventListener("submit", handleFormSubmit.bind(this));
-                break;
-
-        }
-
         var handleFormSubmit = function (event) {
             event.preventDefault();
 
@@ -54,6 +41,18 @@ export default {
                 }, () => {
                     window.location = url;
                 });
+        }
+
+        switch (el.tagName.toLowerCase()) {
+
+            case 'a':
+                el.addEventListener("click", handleLinkClick.bind(this));
+                break;
+
+            case 'form':
+                el.addEventListener("submit", handleFormSubmit.bind(this));
+                break;
+
         }
     }
 
