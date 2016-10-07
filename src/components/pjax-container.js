@@ -7,7 +7,7 @@ export default {
     },
 
     template: `
-        <div ref="container">
+        <div>
             <slot></slot>
         </div>
     `,
@@ -21,7 +21,7 @@ export default {
             bus.$emit('pjax-replace', {
                 url,
                 content,
-                element: this.$refs.container,
+                element: this.$el,
             });
         })
     }
