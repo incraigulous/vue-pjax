@@ -5,7 +5,7 @@ export default {
     },
 
     template: `
-        <div v-el:container>
+        <div ref="container">
             <slot></slot>
         </div>
     `,
@@ -20,7 +20,7 @@ export default {
             this.$dispatch('pjax-replace', {
                 url,
                 content,
-                element: this.$els.container,
+                element: this.$refs.container,
             });
         },
     },
