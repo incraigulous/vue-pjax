@@ -12,9 +12,8 @@ export default {
         </div>
     `,
 
-    events: {
-        ['pjax-loaded']({ url, container, content }) {
-
+    mounted() {
+        bus.$on('pjax-loaded', () => {
             if (this.name !== container) {
                 return;
             }
@@ -24,7 +23,6 @@ export default {
                 content,
                 element: this.$refs.container,
             });
-        },
-    },
-
+        })
+    }
 };
