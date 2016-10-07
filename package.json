@@ -27,7 +27,7 @@
     "lodash.merge": "^4.4.0"
   },
   "peerDependencies": {
-    "vue-resource": "^0.9.3",
+    "vue-resource": "^1.0.3",
     "vue": "^2.0.1"
   },
   "devDependencies": {
