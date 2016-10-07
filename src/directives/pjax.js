@@ -1,11 +1,12 @@
 import request from '../request';
 import serialize from 'form-serialize';
+import bus from '../event-bus'
 
 export default {
 
-    bind() {
+    bind(el) {
 
-        switch (this.el.tagName.toLowerCase()) {
+        switch (el.tagName.toLowerCase()) {
 
             case 'a':
                 this.on('click', handleLinkClick.bind(this));
@@ -16,7 +17,7 @@ export default {
                 break;
 
         }
-    },
+    }
 
 };
 
@@ -30,7 +31,7 @@ function handleFormSubmit(event) {
 
     request(container, { url, method, data })
         .then(response => {
-            this.vm.$broadcast('pjax-loaded', {
+            bus.$emit('pjax-loaded', {
                 url,
                 container,
                 content: response.data,
@@ -48,7 +49,7 @@ function handleLinkClick(event) {
 
     request(container, { url, method: 'GET' })
         .then(response => {
-            this.vm.$broadcast('pjax-loaded', {
+            bus.$emit('pjax-loaded', {
                 url,
                 container,
                 content: response.data,
